@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Ekenem Ugede — Writer, Director, Script & Continuity. Lagos-based creative professional with 15+ years across Africa Magic, M-Net, and international productions."/>
+<title>Ekenem Ugede — Writer · Director · Script &amp; Continuity</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════════════════ */
+:root {
+  --bg:       #0a0a0a;
+  --bg2:      #111111;
+  --white:    #ffffff;
+  --off:      #c8c8c8;
+  --muted:    #666666;
+  --red:      #d04136;
+  --border:   rgba(255,255,255,0.08);
+  --nav-h:    64px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--white);
+  font-family:'DM Sans',sans-serif; font-weight:300;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--red); }
+
+/* ═══════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  height:var(--nav-h);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 3rem;
+  background:linear-gradient(to bottom, rgba(10,10,10,0.96) 0%, transparent 100%);
+  transition:background 0.4s, border-color 0.4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled {
+  background:rgba(10,10,10,0.97);
+  border-bottom-color:var(--border);
+}
+.nav-logo {
+  font-family:'Bebas Neue',sans-serif; font-size:1.1rem;
+  letter-spacing:0.15em; color:var(--white); text-decoration:none;
+  position:relative; z-index:1001;
+}
+.nav-logo span { color:var(--red); }
+
+.nav-links {
+  display:flex; gap:2.5rem; list-style:none;
+}
+.nav-links a {
+  text-decoration:none; color:var(--muted);
+  font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+  transition:color 0.2s; padding:4px 0;
+  border-bottom:1px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a.active { color:var(--white); border-bottom-color:var(--red); }
+
+/* ── Hamburger button — hidden on desktop ── */
+.hamburger {
+  display:none;
+  flex-direction:column; justify-content:center; align-items:center;
+  gap:6px; width:40px; height:40px;
+  background:none; border:none; cursor:pointer;
+  z-index:1100; position:relative; flex-shrink:0;
+}
+.hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--white); border-radius:2px;
+  transition:transform 0.3s ease, opacity 0.2s ease, width 0.3s ease;
+  transform-origin:center;
+}
+.hamburger[aria-expanded="true"] span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2) { opacity:0; width:0; }
+.hamburger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+
+/* ── Mobile fullscreen menu — hidden by default with display:none ── */
+.mobile-menu {
+  display:none;                          /* truly hidden — no layout, no events */
+  position:fixed; inset:0; z-index:1000;
+  background:#0a0a0a;
+  flex-direction:column;
+  align-items:flex-start; justify-content:center;
+  padding:6rem 2.5rem 3rem;
+  overflow-y:auto;
+}
+.mobile-menu.open {
+  display:flex;                          /* shown only when JS adds .open */
+}
+.mobile-menu a {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.8rem, 13vw, 5rem);
+  letter-spacing:0.04em; color:var(--white);
+  text-decoration:none; display:block;
+  line-height:1.1; padding:0.5rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  width:100%;
+  transition:color 0.2s, padding-left 0.2s;
+}
+.mobile-menu a:first-child { border-top:1px solid rgba(255,255,255,0.08); margin-top:1rem; }
+.mobile-menu a:hover { color:var(--red); padding-left:1rem; }
+.mobile-menu-foot {
+  margin-top:2.5rem;
+  font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO — split left / right
+═══════════════════════════════════════════════════════ */
+#hero {
+  padding-top:var(--nav-h);
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:100vh;
+  border-bottom:1px solid var(--border);
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:3.5rem 3rem 3.5rem 4rem;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.hero-eyebrow {
+  font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:1.5rem;
+  opacity:0; animation:fadeUp 0.7s 0.2s forwards;
+}
+.hero-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,9.5vw,11rem);
+  line-height:0.88; letter-spacing:0.01em;
+  opacity:0; animation:fadeUp 0.8s 0.35s forwards;
+}
+.hero-name .r { color:var(--red); display:block; }
+.hero-roles {
+  margin-top:2.5rem;
+  opacity:0; animation:fadeUp 0.7s 0.55s forwards;
+}
+.hero-role-line {
+  display:flex; align-items:center; gap:1rem;
+  padding:0.85rem 0; border-top:1px solid var(--border);
+  font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--muted); transition:color 0.2s, padding-left 0.2s;
+}
+.hero-role-line:last-child { border-bottom:1px solid var(--border); }
+.hero-role-line:hover { color:var(--white); padding-left:0.5rem; }
+.rnum {
+  font-family:'Bebas Neue',sans-serif; font-size:0.7rem;
+  color:rgba(255,255,255,0.15); min-width:1.5rem;
+}
+.hero-bottom {
+  padding-top:3rem;
+  opacity:0; animation:fadeUp 0.7s 0.75s forwards;
+}
+.hero-tagline {
+  font-size:0.88rem; line-height:1.85; color:var(--muted);
+  max-width:360px; margin-bottom:2.25rem;
+}
+.hero-ctas { display:flex; gap:0.75rem; flex-wrap:wrap; }
+
+/* scroll hint */
+.hero-scroll {
+  position:absolute; bottom:2.5rem; left:4rem;
+  display:flex; align-items:center; gap:0.75rem;
+  font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--muted);
+  opacity:0; animation:fadeUp 0.7s 1.3s forwards;
+}
+.scroll-bar {
+  width:36px; height:1px;
+  background:linear-gradient(to right, var(--red), transparent);
+  animation:pulse 2s infinite;
+}
+
+/* hero right — photo */
+.hero-right { position:relative; overflow:hidden; }
+.hero-right img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top; display:block;
+  filter:grayscale(15%) contrast(1.05) brightness(0.85);
+  opacity:0; animation:fadeIn 1.1s 0.5s forwards;
+}
+.hero-right::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(to right, var(--bg) 0%, transparent 30%),
+    linear-gradient(to top, var(--bg) 0%, transparent 25%);
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════ */
+.btn-primary {
+  display:inline-block; background:var(--red); color:var(--white);
+  text-decoration:none; padding:0.85rem 2.5rem;
+  font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase;
+  font-weight:500; font-family:'DM Sans',sans-serif;
+  border:1px solid var(--red);
+  transition:background 0.25s, color 0.25s, transform 0.2s;
+}
+.btn-primary:hover { background:transparent; color:var(--red); transform:translateY(-2px); }
+.btn-ghost {
+  display:inline-block; border:1px solid var(--border); color:var(--off);
+  text-decoration:none; padding:0.85rem 2.5rem;
+  font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase;
+  font-family:'DM Sans',sans-serif;
+  transition:border-color 0.25s, color 0.25s, transform 0.2s;
+}
+.btn-ghost:hover { border-color:var(--white); color:var(--white); transform:translateY(-2px); }
+
+/* ═══════════════════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════════════════ */
+.marquee-wrap {
+  overflow:hidden;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:0.9rem 0; background:var(--bg2);
+}
+.marquee-track {
+  display:flex; gap:3rem; width:max-content; white-space:nowrap;
+  animation:marquee 22s linear infinite;
+}
+.marquee-item {
+  font-family:'Bebas Neue',sans-serif; font-size:0.95rem;
+  letter-spacing:0.14em; color:var(--muted);
+  display:flex; align-items:center; gap:3rem;
+}
+.mdot { width:4px; height:4px; border-radius:50%; background:var(--red); flex-shrink:0; }
+
+/* ═══════════════════════════════════════════════════════
+   SECTION SHARED
+═══════════════════════════════════════════════════════ */
+.section { padding:6rem 5rem; }
+.sec-label {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.68rem; letter-spacing:0.35em; text-transform:uppercase;
+  color:var(--red); margin-bottom:1rem;
+  display:flex; align-items:center; gap:0.75rem;
+}
+.sec-label::before { content:''; width:28px; height:1px; background:var(--red); flex-shrink:0; }
+.sec-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.8rem,5vw,5rem);
+  letter-spacing:0.02em; line-height:0.95; margin-bottom:3rem;
+}
+.sec-title em { color:var(--red); font-style:normal; }
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════════════ */
+#about { background:var(--bg); }
+.about-grid {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:5rem; align-items:start;
+}
+.about-stats { display:flex; flex-direction:column; }
+.astat {
+  padding:1.75rem 0; border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+  transition:padding-left 0.3s;
+}
+.astat:first-child { border-top:1px solid var(--border); }
+.astat::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--red); transform:scaleY(0); transform-origin:bottom;
+  transition:transform 0.3s;
+}
+.astat:hover::before { transform:scaleY(1); }
+.astat:hover { padding-left:1rem; }
+.astat-n { font-family:'Bebas Neue',sans-serif; font-size:3.2rem; line-height:1; }
+.astat-l { font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:0.25rem; }
+.lang-row { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:2rem; }
+.lang {
+  border:1px solid var(--border); padding:0.3rem 0.85rem;
+  font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);
+  transition:border-color 0.2s, color 0.2s;
+}
+.lang:hover { border-color:var(--red); color:var(--red); }
+.about-text p { font-size:0.97rem; line-height:1.95; color:var(--off); margin-bottom:1.4rem; }
+.about-text strong { color:var(--white); font-weight:400; }
+.about-text .hl { color:var(--red); }
+
+/* ═══════════════════════════════════════════════════════
+   WORKS
+═══════════════════════════════════════════════════════ */
+#works { background:var(--bg2); padding-bottom:0; }
+.works-head { padding:0 5rem; }
+.tab-row {
+  display:flex; border-bottom:1px solid var(--border); margin-bottom:0;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.tab-row::-webkit-scrollbar { height:0; }
+.tbtn {
+  background:none; border:none; border-bottom:2px solid transparent;
+  margin-bottom:-1px; padding:1rem 1.75rem 1rem 0;
+  font-family:'DM Sans',sans-serif; font-size:0.67rem;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--muted); cursor:pointer; white-space:nowrap;
+  transition:color 0.2s, border-color 0.2s;
+}
+.tbtn.on { color:var(--white); border-bottom-color:var(--red); }
+.tbtn:hover:not(.on) { color:var(--off); }
+.tpanel { display:none; }
+.tpanel.on { display:block; }
+.works-inner { padding:0 5rem; }
+
+.witem {
+  display:grid; grid-template-columns:190px 1fr auto;
+  gap:2.5rem; padding:2.25rem 0;
+  border-bottom:1px solid var(--border);
+  position:relative; transition:padding-left 0.3s;
+}
+.witem::before {
+  content:''; position:absolute; left:-5rem; top:0; bottom:0; width:2px;
+  background:var(--red); transform:scaleY(0); transform-origin:bottom;
+  transition:transform 0.35s;
+}
+.witem:hover::before { transform:scaleY(1); }
+.witem:hover { padding-left:1.5rem; }
+.wnet { font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:0.35rem; }
+.wrole { font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); }
+.wtitle { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:0.02em; line-height:1; margin-bottom:0.6rem; }
+.wdesc { font-size:0.8rem; line-height:1.8; color:var(--muted); max-width:520px; }
+.wlinks { display:flex; flex-direction:column; gap:0.6rem; align-items:flex-end; justify-content:center; flex-shrink:0; }
+.wlink {
+  font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; white-space:nowrap;
+  transition:color 0.2s;
+}
+.wlink:hover { color:var(--red); }
+
+/* ═══════════════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════════════ */
+#services { background:var(--bg); }
+.services-intro { font-size:0.95rem; color:var(--muted); line-height:1.85; max-width:500px; margin-bottom:3.5rem; }
+.slist { border-top:1px solid var(--border); }
+.sitem {
+  display:grid; grid-template-columns:80px 1fr;
+  gap:2rem; padding:2rem 0;
+  border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+  transition:padding-left 0.3s;
+}
+.sitem:hover { padding-left:1rem; }
+.sitem::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:var(--red); transform:scaleX(0); transform-origin:left;
+  transition:transform 0.4s;
+}
+.sitem:hover::after { transform:scaleX(1); }
+.snum { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--border); padding-top:0.2rem; }
+.sname { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:0.02em; line-height:1; margin-bottom:0.65rem; }
+.sdesc { font-size:0.8rem; line-height:1.85; color:var(--muted); max-width:600px; }
+
+/* ═══════════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════════ */
+#contact {
+  background:var(--bg2); padding:7rem 5rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+#contact::before {
+  content:''; position:absolute; bottom:-200px; left:50%; transform:translateX(-50%);
+  width:700px; height:700px;
+  background:radial-gradient(circle, rgba(208,65,54,0.09) 0%, transparent 65%);
+  pointer-events:none;
+}
+.contact-super {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,8rem);
+  line-height:0.9; letter-spacing:0.02em; margin-bottom:1.5rem;
+  position:relative; z-index:1;
+}
+.contact-super em { color:var(--red); font-style:normal; }
+.contact-sub {
+  font-size:0.92rem; color:var(--muted); line-height:1.85;
+  max-width:420px; margin:0 auto 4rem;
+  position:relative; z-index:1;
+}
+.contact-grid {
+  display:flex; justify-content:center; gap:1px; flex-wrap:wrap;
+  margin-bottom:4.5rem; background:var(--border);
+  position:relative; z-index:1;
+}
+.contact-card {
+  background:var(--bg2); padding:2rem 3rem;
+  text-decoration:none; color:var(--white);
+  flex:1; min-width:200px; max-width:280px;
+  transition:background 0.25s;
+}
+.contact-card:hover { background:rgba(208,65,54,0.08); }
+.cc-label { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem; }
+.cc-val { font-size:0.88rem; color:var(--off); word-break:break-all; }
+.contact-email-big {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.8rem,5vw,5rem);
+  letter-spacing:0.02em; color:var(--white); text-decoration:none; display:block;
+  position:relative; z-index:1; word-break:break-all;
+  transition:color 0.3s;
+}
+.contact-email-big:hover { color:var(--red); }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+footer {
+  background:var(--bg); border-top:1px solid var(--border);
+  padding:2rem 5rem;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1rem;
+}
+.flogo { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:0.1em; color:var(--white); text-decoration:none; }
+.flogo span { color:var(--red); }
+.fcopy { font-size:0.6rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+.flinks { display:flex; gap:2rem; }
+.flinks a {
+  font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; transition:color 0.2s;
+}
+.flinks a:hover { color:var(--white); }
+
+/* ═══════════════════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════════════════ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+@keyframes fadeIn { to{opacity:1} }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤ 960px)
+═══════════════════════════════════════════════════════ */
+@media(max-width:960px) {
+  nav { padding:0 1.5rem; }
+  .nav-links { display:none !important; }   /* hide desktop links */
+  .hamburger { display:flex; }              /* show hamburger */
+
+  #hero { grid-template-columns:1fr; }
+  .hero-left {
+    padding:5.5rem 1.5rem 3rem;
+    border-right:none; border-bottom:1px solid var(--border);
+    min-height:auto;
+  }
+  .hero-right { height:65vw; max-height:460px; }
+  .hero-scroll { display:none; }
+  .hero-name { font-size:clamp(4rem,16vw,7rem); }
+
+  .section { padding:4rem 1.5rem; }
+  .works-head { padding:4rem 1.5rem 0; }
+  .works-inner { padding:0 1.5rem; }
+
+  .about-grid { grid-template-columns:1fr; gap:3rem; }
+
+  .witem { grid-template-columns:1fr; gap:0.5rem; }
+  .witem:hover { padding-left:0; }
+  .witem::before { left:-1.5rem; }
+  .wlinks { flex-direction:row; align-items:flex-start; flex-wrap:wrap; gap:0.75rem; }
+
+  .sitem { grid-template-columns:50px 1fr; gap:1rem; }
+  .sname { font-size:1.5rem; }
+
+  #contact { padding:5rem 1.5rem; }
+  .contact-super { font-size:clamp(2.2rem,10vw,4.5rem); }
+  .contact-email-big { font-size:clamp(1.2rem,6vw,3rem); }
+  .contact-grid { flex-direction:column; gap:1px; }
+  .contact-card { max-width:100%; }
+
+  footer { padding:2rem 1.5rem; flex-direction:column; text-align:center; }
+  .flinks { justify-content:center; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 480px)
+═══════════════════════════════════════════════════════ */
+@media(max-width:480px) {
+  .hero-name { font-size:clamp(3.5rem,18vw,5.5rem); }
+  .hero-left { padding-top:5rem; }
+  .hero-right { height:80vw; }
+  .hero-bottom { padding-top:2rem; }
+  .btn-primary, .btn-ghost { padding:0.75rem 1.5rem; font-size:0.64rem; }
+  .sec-title { font-size:clamp(2rem,11vw,3.5rem); }
+  .astat-n { font-size:2.5rem; }
+  .contact-email-big { font-size:clamp(1rem,7vw,2rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" aria-label="Ekenem Ugede — Home">EKENEM<span>.</span></a>
+  <ul class="nav-links" id="navLinks" role="list">
+    <li><a href="#about">About</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════════ MOBILE MENU ══════════════════ -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#works" class="mobile-link">Works</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <p class="mobile-menu-foot">Lagos · Nollywood · International</p>
+</div>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="hero" aria-label="Introduction">
+  <div class="hero-left">
+    <div>
+      <p class="hero-eyebrow">Lagos · Nollywood · International</p>
+      <h1 class="hero-name">EKENEM<span class="r">UGEDE</span></h1>
+      <div class="hero-roles" aria-label="Disciplines">
+        <div class="hero-role-line"><span class="rnum" aria-hidden="true">01</span>Writer</div>
+        <div class="hero-role-line"><span class="rnum" aria-hidden="true">02</span>Director</div>
+        <div class="hero-role-line"><span class="rnum" aria-hidden="true">03</span>Script &amp; Continuity</div>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-tagline">African stories told with precision, purpose, and global ambition. 15+ years across Africa Magic, M-Net, and international productions.</p>
+      <div class="hero-ctas">
+        <a href="#works" class="btn-primary">View Work</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true"><span class="scroll-bar"></span>Scroll</div>
+  </div>
+  <div class="hero-right">
+    <img src="data:image/jpeg;base64,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" alt="Ekenem Ugede — Writer, Director, Script &amp; Continuity"/>
+  </div>
+</section>
+
+<!-- ══════════════════ MARQUEE ══════════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Africa Magic <span class="mdot"></span></span>
+    <span class="marquee-item">M-Net <span class="mdot"></span></span>
+    <span class="marquee-item">Writer <span class="mdot"></span></span>
+    <span class="marquee-item">Director <span class="mdot"></span></span>
+    <span class="marquee-item">Script &amp; Continuity <span class="mdot"></span></span>
+    <span class="marquee-item">GIZ <span class="mdot"></span></span>
+    <span class="marquee-item">Lagos · Nigeria <span class="mdot"></span></span>
+    <span class="marquee-item">Nollywood <span class="mdot"></span></span>
+    <span class="marquee-item">Africa Magic <span class="mdot"></span></span>
+    <span class="marquee-item">M-Net <span class="mdot"></span></span>
+    <span class="marquee-item">Writer <span class="mdot"></span></span>
+    <span class="marquee-item">Director <span class="mdot"></span></span>
+    <span class="marquee-item">Script &amp; Continuity <span class="mdot"></span></span>
+    <span class="marquee-item">GIZ <span class="mdot"></span></span>
+    <span class="marquee-item">Lagos · Nigeria <span class="mdot"></span></span>
+    <span class="marquee-item">Nollywood <span class="mdot"></span></span>
+  </div>
+</div>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<section id="about" class="section">
+  <div class="sec-label">Who I Am</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="sec-title">Shaping stories<br>that <em>travel.</em></h2>
+      <div class="about-stats">
+        <div class="astat"><div class="astat-n">15+</div><div class="astat-l">Years in the industry</div></div>
+        <div class="astat"><div class="astat-n">M-Net · AM · GIZ</div><div class="astat-l">Key collaborators</div></div>
+        <div class="astat"><div class="astat-n">3</div><div class="astat-l">Core disciplines</div></div>
+      </div>
+      <div class="lang-row" aria-label="Languages">
+        <span class="lang">English</span>
+        <span class="lang">Igbo</span>
+        <span class="lang">Yoruba</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Ekenem Ugede is a Lagos-based writer, director, and script professional with over fifteen years of experience across Nollywood's most prominent platforms — from <strong>Africa Magic</strong> and <strong>M-Net</strong> to internationally-oriented development projects.</p>
+      <p>Her work spans scripted drama, format television, radio, and stage — always driven by the same instinct: to find the precise emotional truth of a story and translate it into something that resonates beyond the screen. She brings that same rigour whether building an episode arc, breaking a story room, or directing cast on set.</p>
+      <p>Ekenem has led content strategy at executive level, supervised M-Net original productions, and facilitated storytelling workshops across Nigeria — most recently under a <strong class="hl">GIZ-backed Gender-Equitable Storytelling</strong> certificate programme.</p>
+      <p>For producers, networks, and studios seeking a collaborator with creative vision and production fluency — and a deep understanding of the African market — Ekenem brings a rare combination of instinct, craft, and institutional experience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ WORKS ══════════════════ -->
+<section id="works" style="background:var(--bg2); padding-top:5rem; padding-bottom:0;">
+  <div class="works-head">
+    <div class="sec-label">Selected Credits</div>
+    <h2 class="sec-title">Filmography</h2>
+    <div class="tab-row" role="tablist" aria-label="Filmography categories">
+      <button class="tbtn on" role="tab" aria-selected="true"  aria-controls="tp-dir" onclick="switchTab('dir',this)">Directing</button>
+      <button class="tbtn"    role="tab" aria-selected="false" aria-controls="tp-wri" onclick="switchTab('wri',this)">Writing</button>
+      <button class="tbtn"    role="tab" aria-selected="false" aria-controls="tp-con" onclick="switchTab('con',this)">Script &amp; Continuity</button>
+    </div>
+  </div>
+  <div class="works-inner">
+
+    <!-- DIRECTING -->
+    <div class="tpanel on" id="tp-dir" role="tabpanel">
+      <div class="witem">
+        <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Director</div></div>
+        <div><div class="wtitle">My Gen Z Stepfather</div><p class="wdesc">A sharp Nigerian family drama exploring generational clashes and evolving household dynamics through a Gen Z lens.</p></div>
+        <div class="wlinks"><a href="https://youtu.be/f1V1EgUF6mQ" target="_blank" rel="noopener" class="wlink">Watch ↗</a></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Director</div></div>
+        <div><div class="wtitle">My Fake Celebrity Boyfriend</div><p class="wdesc">A comedic romantic drama navigating the intersection of fame, identity, and modern Nigerian relationships.</p></div>
+        <div class="wlinks"><a href="https://youtu.be/g6dkVCuaFuY" target="_blank" rel="noopener" class="wlink">Watch ↗</a></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Facilitator</div></div>
+        <div><div class="wtitle">EXTAM Storytelling Workshops</div><p class="wdesc">Facilitated structured storytelling workshops exploring African narrative traditions and their contemporary screen applications.</p></div>
+        <div class="wlinks"></div>
+      </div>
+    </div>
+
+    <!-- WRITING -->
+    <div class="tpanel" id="tp-wri" role="tabpanel">
+      <div class="witem">
+        <div><div class="wnet">Africa Magic</div><div class="wrole">Scriptwriter</div></div>
+        <div><div class="wtitle">Close of Business</div><p class="wdesc">Corporate drama series. Contributed Episodes 9, 13 &amp; 25 — bringing precision to character dynamics and plot mechanics.</p></div>
+        <div class="wlinks"><a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="wlink">IMDB ↗</a></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Forever 7 Entertainment</div><div class="wrole">Writer · Story Dev</div></div>
+        <div><div class="wtitle">Postcards</div><p class="wdesc">Heartfelt drama exploring connection and distance in contemporary Nigeria. Story development through to production-ready drafts.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">M-Net · Blink Digital Media</div><div class="wrole">Writer · Editor · Producer</div></div>
+        <div><div class="wtitle">Hustle — S1, S2 &amp; S3</div><p class="wdesc">M-Net's flagship original. Three seasons in escalating roles — writer, script editor, content producer, and writers' room facilitator.</p></div>
+        <div class="wlinks">
+          <a href="https://youtube.com/playlist?list=PLu_6cjjNhvftaT_4RBzuNPs6lQXJ8j61X" target="_blank" rel="noopener" class="wlink">Teasers ↗</a>
+          <a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="wlink">IMDB ↗</a>
+        </div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Now On Media</div><div class="wrole">Creator · Writer · Producer</div></div>
+        <div><div class="wtitle">Shining Forth</div><p class="wdesc">Created, wrote, and produced end-to-end — full creative and production ownership from concept to broadcast-ready episodes.</p></div>
+        <div class="wlinks">
+          <a href="https://youtu.be/mR3eEWkVxjA" target="_blank" rel="noopener" class="wlink">Ep 5 ↗</a>
+          <a href="https://youtu.be/BFzwxjd4EZA" target="_blank" rel="noopener" class="wlink">Ep 6 ↗</a>
+        </div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Akin Fadeyi Foundation</div><div class="wrole">Head Writer</div></div>
+        <div><div class="wtitle">Corruption Not In My Country</div><p class="wdesc">Led writing team for a purpose-driven TV sketch series tackling corruption and social accountability through entertainment.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Akin Fadeyi Foundation</div><div class="wrole">Head Writer · Sup. Producer</div></div>
+        <div><div class="wtitle">Never Again — Radio Drama</div><p class="wdesc">Supervised writing and production of a radio drama exploring violence, memory, and reconciliation in Nigerian society.</p></div>
+        <div class="wlinks"></div>
+      </div>
+    </div>
+
+    <!-- SCRIPT & CONTINUITY -->
+    <div class="tpanel" id="tp-con" role="tabpanel">
+      <div class="witem">
+        <div><div class="wnet">M-Net · Lite Communications</div><div class="wrole">Content Producer · Director</div></div>
+        <div><div class="wtitle">Highlites With IK</div><p class="wdesc">Content producer and director for this M-Net late-night format show, overseeing continuity and editorial voice across multiple series.</p></div>
+        <div class="wlinks"><a href="https://youtu.be/xn5_Qrj1Hfs" target="_blank" rel="noopener" class="wlink">Clips ↗</a></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Africa Magic · Lite Communications</div><div class="wrole">Creator · Producer</div></div>
+        <div><div class="wtitle">Comedy Nites</div><p class="wdesc">Created and produced this Africa Magic comedy format, managing creative continuity and structure across each series run.</p></div>
+        <div class="wlinks"><a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="wlink">IMDB ↗</a></div>
+      </div>
+      <div class="witem">
+        <div><div class="wnet">Feb – Mar 2019</div><div class="wrole">Script Writer · Content Dev</div></div>
+        <div><div class="wtitle">Big Brother Reunion</div><p class="wdesc">Specialist script writer and content developer for this high-profile reunion format, ensuring narrative continuity across the broadcast.</p></div>
+        <div class="wlinks"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ SERVICES ══════════════════ -->
+<section id="services" class="section">
+  <div class="sec-label">What I Offer</div>
+  <h2 class="sec-title">Services</h2>
+  <p class="services-intro">Available for commissions, co-productions, and long-term partnerships with broadcasters, studios, and development organisations.</p>
+  <div class="slist">
+    <div class="sitem"><div class="snum">01</div><div><div class="sname">Scriptwriting</div><p class="sdesc">Original scripts for TV, film, and radio — from pilot to series. Drama, comedy, and hybrid formats across Africa Magic, M-Net, and independent productions.</p></div></div>
+    <div class="sitem"><div class="snum">02</div><div><div class="sname">Story Editing &amp; Development</div><p class="sdesc">Story area development, writers' room facilitation, script notes, and series bible construction. Shaping early-stage projects from concept to production-ready drafts.</p></div></div>
+    <div class="sitem"><div class="snum">03</div><div><div class="sname">Content Strategy &amp; Producing</div><p class="sdesc">Executive-level strategy for format shows and branded productions. End-to-end producing experience including scheduling, team leadership, and delivery oversight.</p></div></div>
+    <div class="sitem"><div class="snum">04</div><div><div class="sname">Directing</div><p class="sdesc">On-set direction for drama and comedy formats. Experienced working with professional cast and first-time performers, with a focus on authentic, grounded performance.</p></div></div>
+    <div class="sitem"><div class="snum">05</div><div><div class="sname">Workshop Facilitation</div><p class="sdesc">Storytelling, screenwriting, and design thinking workshops for creative teams, institutions, and development programmes — including GIZ-backed initiatives.</p></div></div>
+    <div class="sitem"><div class="snum">06</div><div><div class="sname">Pitch Deck Design</div><p class="sdesc">Compelling pitch materials for series, features, and creative projects — editorial clarity meets visual storytelling for commissioning conversations.</p></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section id="contact">
+  <div class="sec-label" style="justify-content:center;">Get in Touch</div>
+  <h2 class="contact-super">Let's make<br>something <em>remarkable.</em></h2>
+  <p class="contact-sub">Open to new commissions, co-productions, and creative partnerships. Based in Lagos, available internationally.</p>
+  <div class="contact-grid">
+    <a href="mailto:emowaheboh@gmail.com" class="contact-card">
+      <div class="cc-label">Email</div>
+      <div class="cc-val">emowaheboh@gmail.com</div>
+    </a>
+    <a href="tel:+2348183875295" class="contact-card">
+      <div class="cc-label">Phone</div>
+      <div class="cc-val">+234 818 387 5295</div>
+    </a>
+    <a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="contact-card">
+      <div class="cc-label">IMDB</div>
+      <div class="cc-val">nm13528374 ↗</div>
+    </a>
+  </div>
+  <a href="mailto:emowaheboh@gmail.com" class="contact-email-big">emowaheboh@gmail.com</a>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <a href="#" class="flogo">EKENEM<span>.</span></a>
+  <span class="fcopy">© 2026 · Writer · Director · Script &amp; Continuity · Lagos</span>
+  <nav class="flinks" aria-label="Footer navigation">
+    <a href="#about">About</a>
+    <a href="#works">Works</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</footer>
+
+<!-- ══════════════════ JAVASCRIPT ══════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  var NAV_H = 64;
+
+  /* ── Nav: solidify on scroll ── */
+  var nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  /* ── Smooth scroll ── */
+  function scrollToSection(href) {
+    if (!href || href === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    var target = document.querySelector(href);
+    if (!target) return;
+    var top = target.getBoundingClientRect().top + window.scrollY - NAV_H;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeMobileMenu();
+      scrollToSection(this.getAttribute('href'));
+    });
+  });
+
+  /* ── Hamburger / Mobile Menu ── */
+  var hamburger  = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var isOpen = false;
+
+  function openMobileMenu() {
+    isOpen = true;
+    mobileMenu.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    isOpen = false;
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isOpen) closeMobileMenu();
+  });
+
+  /* ── Active nav link on scroll ── */
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+
+  if ('IntersectionObserver' in window && navLinks.length) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function(s) { io.observe(s); });
+  }
+
+  /* ── Works tab switching ── */
+  window.switchTab = function(name, btn) {
+    document.querySelectorAll('.tpanel').forEach(function(p) { p.classList.remove('on'); });
+    document.querySelectorAll('.tbtn').forEach(function(b) {
+      b.classList.remove('on');
+      b.setAttribute('aria-selected', 'false');
+    });
+    var panel = document.getElementById('tp-' + name);
+    if (panel) panel.classList.add('on');
+    btn.classList.add('on');
+    btn.setAttribute('aria-selected', 'true');
+  };
+
+})();
+</script><script>
+(function() {
+  'use strict';
+
+  /* ── Nav: solidify on scroll ── */
+  var nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  /* ── Smooth scroll for ALL anchor links (nav + footer + hero CTAs) ── */
+  var NAV_H = 64;
+  function smoothScrollTo(targetId) {
+    if (targetId === '#' || !targetId) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    var el = document.querySelector(targetId);
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.scrollY - NAV_H;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = this.getAttribute('href');
+      e.preventDefault();
+      closeMobileMenu();
+      smoothScrollTo(href);
+    });
+  });
+
+  /* ── Hamburger / Mobile Menu ── */
+  var hamburger   = document.getElementById('hamburger');
+  var mobileMenu  = document.getElementById('mobileMenu');
+  var isOpen      = false;
+
+  function openMobileMenu() {
+    isOpen = true;
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close navigation menu');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    isOpen = false;
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  /* close on Escape */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isOpen) closeMobileMenu();
+  });
+
+  /* ── Active nav link highlight on scroll ── */
+  var sections = document.querySelectorAll('section[id]');
+  var navAs    = document.querySelectorAll('.nav-links a');
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          navAs.forEach(function(a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function(s) { io.observe(s); });
+  }
+
+  /* ── Tab switching (Works filmography) ── */
+  window.switchTab = function(name, btn) {
+    document.querySelectorAll('.tpanel').forEach(function(p) { p.classLi
