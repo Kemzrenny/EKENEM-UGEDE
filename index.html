@@ -419,6 +419,29 @@ body {
 .lightbox img { max-width:100%; max-height:100%; object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 .lightbox-close { position:absolute; top:1rem; right:1.25rem; background:none; border:none; color:var(--white); font-size:2rem; line-height:1; cursor:pointer; }
 /* Gallery */
+/* Pitch decks */
+#decks { background:var(--bg2); }
+.deck-intro { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:end; margin-bottom:3.5rem; }
+.deck-intro p { color:var(--muted); font-size:0.95rem; line-height:1.85; max-width:460px; }
+.deck { display:grid; grid-template-columns:280px 1fr; gap:3rem; padding:3rem 0; border-top:1px solid var(--border); }
+.deck:last-child { border-bottom:1px solid var(--border); }
+.deck-title { font-family:'Bebas Neue',sans-serif; font-weight:400; font-size:2.4rem; line-height:1; color:var(--white); margin:0.6rem 0 1rem; letter-spacing:0.01em; }
+.deck-log { color:var(--muted); font-size:0.9rem; line-height:1.8; margin-bottom:1.75rem; }
+.deck-pages { display:grid; grid-template-columns:repeat(3,1fr) 0.6fr; gap:0.75rem; align-items:stretch; }
+.deck-page { position:relative; padding:0; border:1px solid var(--border); background:#000; cursor:zoom-in; overflow:hidden; aspect-ratio:16/9; align-self:center; transition:border-color 0.25s, transform 0.25s; }
+.deck-page img { width:100%; height:100%; object-fit:cover; display:block; }
+.deck-page:hover { border-color:var(--red); transform:translateY(-3px); }
+.deck-pn { position:absolute; left:0.5rem; bottom:0.4rem; font-size:0.58rem; letter-spacing:0.18em; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
+.deck-more { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.6rem; text-align:center; text-decoration:none;
+  border:1px dashed rgba(255,255,255,0.22); color:var(--off); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; line-height:1.6; transition:border-color 0.25s, color 0.25s; }
+.deck-more { aspect-ratio:16/15; align-self:center; }
+.deck-more:hover { border-color:var(--red); color:var(--red); }
+.deck-lock { width:14px; height:11px; border:1.5px solid currentColor; border-radius:2px; position:relative; margin-top:6px; }
+.deck-lock::before { content:''; position:absolute; left:50%; bottom:100%; transform:translateX(-50%); width:8px; height:7px; border:1.5px solid currentColor; border-bottom:none; border-radius:5px 5px 0 0; }
+.deck-note { margin-top:2rem; font-size:0.72rem; color:var(--muted); }
+.deck-note a { color:var(--off); }
+@media(max-width:960px){ .deck-intro{ grid-template-columns:1fr; gap:1rem; } .deck{ grid-template-columns:1fr; gap:1.75rem; } }
+@media(max-width:600px){ .deck-pages{ grid-template-columns:1fr 1fr; } .deck-more{ aspect-ratio:16/9; } }
 #gallery { background:var(--bg); }
 .gal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
 .gal-item { margin:0; }
@@ -595,6 +618,7 @@ footer {
   <ul class="nav-links" id="navLinks" role="list">
     <li><a href="#about">About</a></li>
     <li><a href="#works">Works</a></li>
+    <li data-needs="decks" hidden><a href="#decks">Decks</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -607,6 +631,7 @@ footer {
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <a href="#about" class="mobile-link">About</a>
   <a href="#works" class="mobile-link">Works</a>
+  <a href="#decks" class="mobile-link" data-needs="decks" hidden>Decks</a>
   <a href="#services" class="mobile-link">Services</a>
   <a href="#contact" class="mobile-link">Contact</a>
   <p class="mobile-menu-foot">Lagos · Nollywood · International</p>
@@ -845,6 +870,20 @@ footer {
   </div>
 </section>
 
+<!-- ══════════════════ PITCH DECKS ══════════════════
+     Stays hidden until at least one .deck card is inside .deck-list.
+     Add a deck: python3 tools/add_deck.py deck.pdf slug "Title" "Format · Status" "Logline"
+     and paste the printed card into .deck-list. Only pages 1–3 are published. -->
+<section id="decks" class="section" hidden>
+  <div class="sec-label">In Development</div>
+  <div class="deck-intro">
+    <h2 class="sec-title">Pitch <em>decks.</em></h2>
+    <p>A first look at projects in development. Preview the opening pages, then request the full deck — it’s shared directly with producers, networks, and studios.</p>
+  </div>
+  <div class="deck-list">
+  </div>
+</section>
+
 <!-- ══════════════════ GALLERY ══════════════════ -->
 <section id="gallery" class="section">
   <div class="sec-label">Behind the Scenes</div>
@@ -1006,6 +1045,26 @@ footer {
     btn.setAttribute('aria-selected', 'true');
   };
 
+})();
+</script>
+<script>
+/* Pitch decks: reveal section when decks exist; build request emails */
+(function(){
+  var sec=document.getElementById('decks'); if(!sec) return;
+  var decks=sec.querySelectorAll('.deck'); if(!decks.length) return;
+  sec.hidden=false;
+  document.querySelectorAll('[data-needs="decks"]').forEach(function(el){ el.hidden=false; });
+  var list=sec.querySelector('.deck-list');
+  var note=document.createElement('p'); note.className='deck-note';
+  note.innerHTML='Request button not opening your email? Write to <a href="mailto:efugede@gmail.com">efugede@gmail.com</a> with the project title.';
+  list.after(note);
+  decks.forEach(function(d){
+    var t=d.getAttribute('data-deck');
+    var subject='Pitch deck request: '+t;
+    var body='Hello Ekenem,\n\nI would like to request the full pitch deck for "'+t+'".\n\nName:\nCompany / Network:\nRole:\nWhat I am considering it for:\n\nThank you.';
+    var href='mailto:efugede@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    d.querySelectorAll('.deck-req').forEach(function(a){ a.href=href; a.setAttribute('aria-label','Request the full '+t+' pitch deck by email'); });
+  });
 })();
 </script>
 <script>
