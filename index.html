@@ -292,11 +292,11 @@ body {
 /* Key collaborators — text wordmarks; swap each <li> text for an <img> logo when supplied */
 .collab { margin-top:4.5rem; padding-top:2.5rem; border-top:1px solid var(--border); }
 .collab-label { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1.5rem; }
-.collab-row { list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:1rem 3rem; }
-.collab-item { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:0.04em; color:var(--off); opacity:0.7; transition:opacity 0.2s, color 0.2s; }
-.collab-item:hover { opacity:1; color:var(--white); }
-.collab-item img { height:36px; width:auto; filter:grayscale(1) brightness(1.6); display:block; }
-@media(max-width:480px){ .collab-row{ gap:0.75rem 1.75rem; } .collab-item{ font-size:1.25rem; } }
+.collab-row { list-style:none; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:2rem 3rem; }
+.collab-item { opacity:0.6; transition:opacity 0.25s; }
+.collab-item:hover { opacity:1; }
+.collab-item img { height:var(--h,48px); width:auto; display:block; }
+@media(max-width:720px){ .collab-row{ justify-content:center; gap:1.75rem 2.25rem; } .collab-item img{ height:calc(var(--h,48px) * 0.8); } }
 
 /* ═══════════════════════════════════════════════════════
    WORKS
@@ -356,6 +356,9 @@ body {
 .wposter img { width:100%; height:100%; object-fit:cover; display:block; position:relative; }
 .wposter.land::before { content:''; position:absolute; inset:-12px; background:var(--img) center/cover; filter:blur(12px) brightness(0.55); }
 .wposter.land img { object-fit:contain; }
+.wposter.light { background:#f7f7f7; }
+.wposter.light::before { display:none; }
+.wposter.light img { padding:6px; }
 .wposter.empty { border-style:dashed; cursor:default; background:transparent; }
 .witem:hover .wposter:not(.empty) { border-color:var(--red); transform:scale(1.04); }
 .wposter:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
@@ -666,12 +669,12 @@ footer {
   <div class="collab" aria-label="Key collaborators">
     <div class="collab-label">Key Collaborators</div>
     <ul class="collab-row" role="list">
-      <li class="collab-item">Africa Magic</li>
-      <li class="collab-item">Lite Communications</li>
-      <li class="collab-item">Akin Fadeyi Foundation</li>
-      <li class="collab-item">TFR Media</li>
-      <li class="collab-item">EXTAM</li>
-      <li class="collab-item">Forever 7</li>
+      <li class="collab-item"><img src="images/logos/africa-magic.png" alt="Africa Magic" style="--h:52px" loading="lazy"/></li>
+      <li class="collab-item"><img src="images/logos/lite-communications.png" alt="Lite Communications" style="--h:42px" loading="lazy"/></li>
+      <li class="collab-item"><img src="images/logos/akin-fadeyi-foundation.png" alt="Akin Fadeyi Foundation" style="--h:40px" loading="lazy"/></li>
+      <li class="collab-item"><img src="images/logos/tigerfirerose.png" alt="TigerFireRose Media" style="--h:70px" loading="lazy"/></li>
+      <li class="collab-item"><img src="images/logos/extam.png" alt="EXTAM — Exploring the African Motif" style="--h:54px" loading="lazy"/></li>
+      <li class="collab-item"><img src="images/logos/forever-7.png" alt="Forever 7 Entertainment" style="--h:56px" loading="lazy"/></li>
     </ul>
   </div>
 </section>
@@ -704,7 +707,7 @@ footer {
         <div class="wlinks"><button type="button" class="wwatch" data-yt="g6dkVCuaFuY" aria-label="Play My Fake Celebrity Boyfriend — Watch film"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Watch film</span></button></div>
       </div>
       <div class="witem">
-        <div class="wposter empty" aria-hidden="true"></div>
+        <button type="button" class="wposter land light" style="--img:url(images/works/extam.jpg)" data-full="images/works/extam.jpg" aria-label="View EXTAM artwork"><img src="images/works/extam.jpg" alt="Exploring the African Motif artwork" loading="lazy"/></button>
         <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Facilitator</div></div>
         <div><div class="wtitle">EXTAM Storytelling Workshops</div><p class="wdesc">Facilitated structured storytelling workshops exploring African narrative traditions and their contemporary screen applications.</p></div>
         <div class="wlinks"></div>
@@ -748,6 +751,12 @@ footer {
         <div><div class="wnet">Forever 7 Entertainment · Netflix</div><div class="wrole">Scriptwriter · Story Dev</div></div>
         <div><div class="wtitle">Postcards</div><p class="wdesc">Heartfelt drama exploring connection and distance in contemporary Nigeria. Story development through to production-ready drafts.</p></div>
         <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter land has-video" style="--img:url(images/works/simi-and-friends.jpg)" data-yt="N_O1DJbbD9U" aria-label="Play Simi &amp; Friends"><img src="images/works/simi-and-friends.jpg" alt="Simi &amp; Friends title card" loading="lazy"/><span class="wplay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
+        <div><div class="wnet">Forever 7 Entertainment</div><div class="wrole">Scriptwriter</div></div>
+        <div><div class="wtitle">Simi &amp; Friends</div><p class="wdesc"><em>Butterflies in My Tummy</em> — an animated musical short about a four-year-old’s first day of school in Lagos, and finding confidence one small step at a time.</p></div>
+        <div class="wlinks"><button type="button" class="wwatch" data-yt="N_O1DJbbD9U" aria-label="Play Simi &amp; Friends — Watch film"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Watch film</span></button></div>
       </div>
       <div class="witem">
         <button type="button" class="wposter has-video" data-ytlist="PLu_6cjjNhvftaT_4RBzuNPs6lQXJ8j61X" aria-label="Play Hustle — S1, S2 & S3"><img src="images/works/hustle-s3.jpg" alt="Hustle — S1, S2 & S3 poster" loading="lazy"/><span class="wplay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
