@@ -34,7 +34,7 @@ body {
 /* ═══════════════════════════════════════════════════════
    NAV
 ═══════════════════════════════════════════════════════ */
-nav {
+#mainNav {
   position:fixed; top:0; left:0; right:0; z-index:900;
   height:var(--nav-h);
   display:flex; align-items:center; justify-content:space-between;
@@ -43,7 +43,7 @@ nav {
   transition:background 0.4s, border-color 0.4s;
   border-bottom:1px solid transparent;
 }
-nav.scrolled {
+#mainNav.scrolled {
   background:rgba(10,10,10,0.97);
   border-bottom-color:var(--border);
 }
@@ -346,6 +346,32 @@ nav.scrolled {
   transition:color 0.2s;
 }
 .wlink:hover { color:var(--red); }
+/* Posters */
+.witem { grid-template-columns:96px 190px 1fr auto; align-items:center; }
+.wposter {
+  width:96px; aspect-ratio:3/4; padding:0; border:1px solid var(--border);
+  background:#000; overflow:hidden; position:relative; cursor:zoom-in; display:block;
+  transition:transform 0.3s, border-color 0.3s;
+}
+.wposter img { width:100%; height:100%; object-fit:cover; display:block; position:relative; }
+.wposter.land::before { content:''; position:absolute; inset:-12px; background:var(--img) center/cover; filter:blur(12px) brightness(0.55); }
+.wposter.land img { object-fit:contain; }
+.wposter.empty { border-style:dashed; cursor:default; background:transparent; }
+.witem:hover .wposter:not(.empty) { border-color:var(--red); transform:scale(1.04); }
+.wposter:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+/* Lightbox */
+.lightbox { position:fixed; inset:0; z-index:1100; background:rgba(0,0,0,0.92); display:none; align-items:center; justify-content:center; padding:2rem; cursor:zoom-out; }
+.lightbox.on { display:flex; }
+.lightbox img { max-width:100%; max-height:100%; object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+.lightbox-close { position:absolute; top:1rem; right:1.25rem; background:none; border:none; color:var(--white); font-size:2rem; line-height:1; cursor:pointer; }
+/* Gallery */
+#gallery { background:var(--bg); }
+.gal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+.gal-item { margin:0; }
+.gal-item button { display:block; width:100%; padding:0; border:none; background:#000; cursor:zoom-in; overflow:hidden; }
+.gal-item img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; transition:transform 0.5s; }
+.gal-item button:hover img { transform:scale(1.04); }
+.gal-item figcaption { font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:0.75rem; }
 
 /* ═══════════════════════════════════════════════════════
    SERVICES
@@ -470,7 +496,11 @@ footer {
 
   .about-grid { grid-template-columns:1fr; gap:3rem; }
 
-  .witem { grid-template-columns:1fr; gap:0.5rem; }
+  .witem { grid-template-columns:80px 1fr; gap:0.4rem 1.25rem; align-items:start; }
+  .witem > :not(.wposter) { grid-column:2; }
+  .wposter { width:80px; grid-row:1 / span 3; }
+  .wposter.empty { display:none; }
+  .witem:has(.wposter.empty) > * { grid-column:1 / -1; }
   .witem:hover { padding-left:0; }
   .witem::before { left:-1.5rem; }
   .wlinks { flex-direction:row; align-items:flex-start; flex-wrap:wrap; gap:0.75rem; }
@@ -628,16 +658,19 @@ footer {
     <!-- DIRECTING -->
     <div class="tpanel on" id="tp-dir" role="tabpanel">
       <div class="witem">
+        <button type="button" class="wposter land" style="--img:url(images/works/my-gen-z-stepfather.jpg)" data-full="images/works/my-gen-z-stepfather.jpg" aria-label="View My Gen Z Stepfather poster"><img src="images/works/my-gen-z-stepfather.jpg" alt="My Gen Z Stepfather poster" loading="lazy"/></button>
         <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Director</div></div>
         <div><div class="wtitle">My Gen Z Stepfather</div><p class="wdesc">A sharp Nigerian family drama exploring generational clashes and evolving household dynamics through a Gen Z lens.</p></div>
         <div class="wlinks"><a href="https://youtu.be/f1V1EgUF6mQ" target="_blank" rel="noopener" class="wlink">Watch ↗</a></div>
       </div>
       <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/my-fake-celebrity-boyfriend.jpg" aria-label="View My Fake Celebrity Boyfriend poster"><img src="images/works/my-fake-celebrity-boyfriend.jpg" alt="My Fake Celebrity Boyfriend poster" loading="lazy"/></button>
         <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Director</div></div>
         <div><div class="wtitle">My Fake Celebrity Boyfriend</div><p class="wdesc">A comedic romantic drama navigating the intersection of fame, identity, and modern Nigerian relationships.</p></div>
         <div class="wlinks"><a href="https://youtu.be/g6dkVCuaFuY" target="_blank" rel="noopener" class="wlink">Watch ↗</a></div>
       </div>
       <div class="witem">
+        <div class="wposter empty" aria-hidden="true"></div>
         <div><div class="wnet">TigerFireRose Media</div><div class="wrole">Facilitator</div></div>
         <div><div class="wtitle">EXTAM Storytelling Workshops</div><p class="wdesc">Facilitated structured storytelling workshops exploring African narrative traditions and their contemporary screen applications.</p></div>
         <div class="wlinks"></div>
@@ -646,17 +679,45 @@ footer {
 
     <!-- WRITING -->
     <div class="tpanel" id="tp-wri" role="tabpanel">
+      <!-- TODO: confirm Ekenem's exact role on The Ten, Sirrin Amarya and Dividends -->
       <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/the-ten.jpg" aria-label="View The Ten poster"><img src="images/works/the-ten.jpg" alt="The Ten poster" loading="lazy"/></button>
+        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wtitle">The Ten</div><p class="wdesc">A church-set mystery drama in which ten people are bound to one death — and only the truth can set them free.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/sirrin-amarya.jpg" aria-label="View Sirrin Amarya poster"><img src="images/works/sirrin-amarya.jpg" alt="Sirrin Amarya poster" loading="lazy"/></button>
+        <div><div class="wnet">Africa Magic Hausa</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wtitle">Sirrin Amarya</div><p class="wdesc">A Hausa-language thriller — <em>The Bride’s Secret</em> — built on suspense, betrayal, and what lies beneath a marriage.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/dividends.jpg" aria-label="View Dividends poster"><img src="images/works/dividends.jpg" alt="Dividends poster" loading="lazy"/></button>
+        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wtitle">Dividends</div><p class="wdesc">A drama about the lure of get-rich-quick schemes and the people left behind when the doors close. Not every opportunity is golden.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter land" style="--img:url(images/works/badt-guys.jpg)" data-full="images/works/badt-guys.jpg" aria-label="View Badt Guys poster"><img src="images/works/badt-guys.jpg" alt="Badt Guys poster" loading="lazy"/></button>
+        <div><div class="wnet">Akin Fadeyi Foundation · NTA</div><div class="wrole">Creator</div></div>
+        <div><div class="wtitle">Badt Guys</div><p class="wdesc">A nine-episode drama series exposing corruption in grassroots politics, broadcast on NTA Network in 2020 to inspire positive behavioural change.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/close-of-business.jpg" aria-label="View Close of Business poster"><img src="images/works/close-of-business.jpg" alt="Close of Business poster" loading="lazy"/></button>
         <div><div class="wnet">Africa Magic</div><div class="wrole">Scriptwriter</div></div>
         <div><div class="wtitle">Close of Business</div><p class="wdesc">Corporate drama series. Contributed Episodes 9, 13 &amp; 25 — bringing precision to character dynamics and plot mechanics.</p></div>
         <div class="wlinks"><a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="wlink">IMDB ↗</a></div>
       </div>
       <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/postcards.jpg" aria-label="View Postcards poster"><img src="images/works/postcards.jpg" alt="Postcards poster" loading="lazy"/></button>
         <div><div class="wnet">Forever 7 Entertainment</div><div class="wrole">Writer · Story Dev</div></div>
         <div><div class="wtitle">Postcards</div><p class="wdesc">Heartfelt drama exploring connection and distance in contemporary Nigeria. Story development through to production-ready drafts.</p></div>
         <div class="wlinks"></div>
       </div>
       <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/hustle-s3.jpg" aria-label="View Hustle — S1, S2 & S3 poster"><img src="images/works/hustle-s3.jpg" alt="Hustle — S1, S2 & S3 poster" loading="lazy"/></button>
         <div><div class="wnet">M-Net · Blink Digital Media</div><div class="wrole">Writer · Editor · Producer</div></div>
         <div><div class="wtitle">Hustle — S1, S2 &amp; S3</div><p class="wdesc">M-Net's flagship original. Three seasons in escalating roles — writer, script editor, content producer, and writers' room facilitator.</p></div>
         <div class="wlinks">
@@ -665,6 +726,7 @@ footer {
         </div>
       </div>
       <div class="witem">
+        <div class="wposter empty" aria-hidden="true"></div>
         <div><div class="wnet">Now On Media</div><div class="wrole">Creator · Writer · Producer</div></div>
         <div><div class="wtitle">Shining Forth</div><p class="wdesc">Created, wrote, and produced end-to-end — full creative and production ownership from concept to broadcast-ready episodes.</p></div>
         <div class="wlinks">
@@ -673,11 +735,13 @@ footer {
         </div>
       </div>
       <div class="witem">
+        <button type="button" class="wposter land" style="--img:url(images/works/not-in-my-country.jpg)" data-full="images/works/not-in-my-country.jpg" aria-label="View Corruption Not In My Country poster"><img src="images/works/not-in-my-country.jpg" alt="Corruption Not In My Country poster" loading="lazy"/></button>
         <div><div class="wnet">Akin Fadeyi Foundation</div><div class="wrole">Head Writer</div></div>
         <div><div class="wtitle">Corruption Not In My Country</div><p class="wdesc">Led writing team for a purpose-driven TV sketch series tackling corruption and social accountability through entertainment.</p></div>
         <div class="wlinks"></div>
       </div>
       <div class="witem">
+        <div class="wposter empty" aria-hidden="true"></div>
         <div><div class="wnet">Akin Fadeyi Foundation</div><div class="wrole">Head Writer · Sup. Producer</div></div>
         <div><div class="wtitle">Never Again — Radio Drama</div><p class="wdesc">Supervised writing and production of a radio drama exploring violence, memory, and reconciliation in Nigerian society.</p></div>
         <div class="wlinks"></div>
@@ -687,16 +751,19 @@ footer {
     <!-- CONTENT PRODUCING -->
     <div class="tpanel" id="tp-con" role="tabpanel">
       <div class="witem">
+        <button type="button" class="wposter land" style="--img:url(images/works/highlites-with-ik.jpg)" data-full="images/works/highlites-with-ik.jpg" aria-label="View Highlites With IK poster"><img src="images/works/highlites-with-ik.jpg" alt="Highlites With IK poster" loading="lazy"/></button>
         <div><div class="wnet">M-Net · Lite Communications</div><div class="wrole">Content Producer · Director</div></div>
         <div><div class="wtitle">Highlites With IK</div><p class="wdesc">Content producer and director for this M-Net late-night format show, overseeing continuity and editorial voice across multiple series.</p></div>
         <div class="wlinks"><a href="https://youtu.be/xn5_Qrj1Hfs" target="_blank" rel="noopener" class="wlink">Clips ↗</a></div>
       </div>
       <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/comedy-nites.jpg" aria-label="View Comedy Nites poster"><img src="images/works/comedy-nites.jpg" alt="Comedy Nites poster" loading="lazy"/></button>
         <div><div class="wnet">Africa Magic · Lite Communications</div><div class="wrole">Creator · Producer</div></div>
         <div><div class="wtitle">Comedy Nites</div><p class="wdesc">Created and produced this Africa Magic comedy format, managing creative continuity and structure across each series run.</p></div>
         <div class="wlinks"><a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="wlink">IMDB ↗</a></div>
       </div>
       <div class="witem">
+        <div class="wposter empty" aria-hidden="true"></div>
         <div><div class="wnet">Feb – Mar 2019</div><div class="wrole">Script Writer · Content Dev</div></div>
         <div><div class="wtitle">Big Brother Reunion</div><p class="wdesc">Specialist script writer and content developer for this high-profile reunion format, ensuring narrative continuity across the broadcast.</p></div>
         <div class="wlinks"></div>
@@ -705,6 +772,23 @@ footer {
 
   </div>
 </section>
+
+<!-- ══════════════════ GALLERY ══════════════════ -->
+<section id="gallery" class="section">
+  <div class="sec-label">Behind the Scenes</div>
+  <h2 class="sec-title">On <em>set.</em></h2>
+  <div class="gal-grid">
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/comedy-nites-on-set.jpg" aria-label="View larger"><img src="images/gallery/comedy-nites-on-set.jpg" alt="Ekenem on the set of Comedy Nites with cast" loading="lazy"/></button>
+      <figcaption>Comedy Nites · Africa Magic</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="lightbox-close" aria-label="Close">×</button>
+  <img alt=""/>
+</div>
 
 <!-- ══════════════════ SERVICES ══════════════════ -->
 <section id="services" class="section">
@@ -845,81 +929,18 @@ footer {
   };
 
 })();
-</script><script>
-(function() {
-  'use strict';
-
-  /* ── Nav: solidify on scroll ── */
-  var nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', function() {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
-
-  /* ── Smooth scroll for ALL anchor links (nav + footer + hero CTAs) ── */
-  var NAV_H = 64;
-  function smoothScrollTo(targetId) {
-    if (targetId === '#' || !targetId) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    var el = document.querySelector(targetId);
-    if (!el) return;
-    var top = el.getBoundingClientRect().top + window.scrollY - NAV_H;
-    window.scrollTo({ top: top, behavior: 'smooth' });
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
-    link.addEventListener('click', function(e) {
-      var href = this.getAttribute('href');
-      e.preventDefault();
-      closeMobileMenu();
-      smoothScrollTo(href);
-    });
+</script>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'), img=lb.querySelector('img');
+  function open(src,alt){ img.src=src; img.alt=alt||''; lb.classList.add('on'); document.body.style.overflow='hidden'; lb.querySelector('.lightbox-close').focus(); }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+  document.querySelectorAll('[data-full]').forEach(function(b){
+    b.addEventListener('click',function(){ var i=b.querySelector('img'); open(b.getAttribute('data-full'), i&&i.alt); });
   });
-
-  /* ── Hamburger / Mobile Menu ── */
-  var hamburger   = document.getElementById('hamburger');
-  var mobileMenu  = document.getElementById('mobileMenu');
-  var isOpen      = false;
-
-  function openMobileMenu() {
-    isOpen = true;
-    hamburger.setAttribute('aria-expanded', 'true');
-    hamburger.setAttribute('aria-label', 'Close navigation menu');
-    mobileMenu.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMobileMenu() {
-    isOpen = false;
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.setAttribute('aria-label', 'Open navigation menu');
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  hamburger.addEventListener('click', function() {
-    isOpen ? closeMobileMenu() : openMobileMenu();
-  });
-
-  /* close on Escape */
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && isOpen) closeMobileMenu();
-  });
-
-  /* ── Active nav link highlight on scroll ── */
-  var sections = document.querySelectorAll('section[id]');
-  var navAs    = document.querySelectorAll('.nav-links a');
-
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          navAs.forEach(function(a) {
-            a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-          });
-        }
-      });
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-    sections.forEach(function(s) { io.observe(s); });
-  }
-
-  /* ── Tab switching (Works filmography) ── */
-  window.switchTab = function(name, btn) {
-    document.querySelectorAll('.tpanel').forEach(function(p) { p.classLi
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+</body>
+</html>
