@@ -423,19 +423,18 @@ body {
   position:relative; z-index:1;
 }
 .contact-grid {
-  display:flex; justify-content:center; gap:1px; flex-wrap:wrap;
-  margin-bottom:4.5rem; background:var(--border);
+  display:grid; grid-template-columns:repeat(4, minmax(0,230px)); justify-content:center; gap:1px;
+  margin:0 auto 4.5rem; background:var(--border); width:fit-content; max-width:100%;
   position:relative; z-index:1;
 }
 .contact-card {
-  background:var(--bg2); padding:2rem 3rem;
+  background:var(--bg2); padding:2rem 1.5rem;
   text-decoration:none; color:var(--white);
-  flex:1; min-width:200px; max-width:280px;
   transition:background 0.25s;
 }
 .contact-card:hover { background:rgba(208,65,54,0.08); }
 .cc-label { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem; }
-.cc-val { font-size:0.88rem; color:var(--off); word-break:break-all; }
+.cc-val { font-size:0.88rem; color:var(--off); overflow-wrap:anywhere; }
 .contact-email-big {
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(1.8rem,5vw,5rem);
@@ -511,7 +510,7 @@ footer {
   #contact { padding:5rem 1.5rem; }
   .contact-super { font-size:clamp(2.2rem,10vw,4.5rem); }
   .contact-email-big { font-size:clamp(1.2rem,6vw,3rem); }
-  .contact-grid { flex-direction:column; gap:1px; }
+  .contact-grid { grid-template-columns:1fr 1fr; width:100%; }
   .contact-card { max-width:100%; }
 
   footer { padding:2rem 1.5rem; flex-direction:column; text-align:center; }
@@ -522,6 +521,7 @@ footer {
    RESPONSIVE — MOBILE (≤ 480px)
 ═══════════════════════════════════════════════════════ */
 @media(max-width:480px) {
+  .contact-grid { grid-template-columns:1fr; }
   .hero-name { font-size:clamp(3.5rem,18vw,5.5rem); }
   .hero-left { padding-top:5rem; }
   .hero-right { height:80vw; }
@@ -575,6 +575,7 @@ footer {
       <div class="hero-ctas">
         <a href="#works" class="btn-primary">View Work</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
+        <a href="files/Ekenem-Ugede-Writing-Resume.pdf" class="btn-ghost" download>Resume ↓</a>
       </div>
     </div>
     <div class="hero-scroll" aria-hidden="true"><span class="scroll-bar"></span>Scroll</div>
@@ -679,28 +680,27 @@ footer {
 
     <!-- WRITING -->
     <div class="tpanel" id="tp-wri" role="tabpanel">
-      <!-- TODO: confirm Ekenem's exact role on The Ten, Sirrin Amarya and Dividends -->
       <div class="witem">
         <button type="button" class="wposter" data-full="images/works/the-ten.jpg" aria-label="View The Ten poster"><img src="images/works/the-ten.jpg" alt="The Ten poster" loading="lazy"/></button>
-        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">Scriptwriter</div></div>
         <div><div class="wtitle">The Ten</div><p class="wdesc">A church-set mystery drama in which ten people are bound to one death — and only the truth can set them free.</p></div>
         <div class="wlinks"></div>
       </div>
       <div class="witem">
         <button type="button" class="wposter" data-full="images/works/sirrin-amarya.jpg" aria-label="View Sirrin Amarya poster"><img src="images/works/sirrin-amarya.jpg" alt="Sirrin Amarya poster" loading="lazy"/></button>
-        <div><div class="wnet">Africa Magic Hausa</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wnet">Africa Magic Hausa</div><div class="wrole">Scriptwriter</div></div>
         <div><div class="wtitle">Sirrin Amarya</div><p class="wdesc">A Hausa-language thriller — <em>The Bride’s Secret</em> — built on suspense, betrayal, and what lies beneath a marriage.</p></div>
         <div class="wlinks"></div>
       </div>
       <div class="witem">
         <button type="button" class="wposter" data-full="images/works/dividends.jpg" aria-label="View Dividends poster"><img src="images/works/dividends.jpg" alt="Dividends poster" loading="lazy"/></button>
-        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">An AM Original</div></div>
+        <div><div class="wnet">Africa Magic Showcase</div><div class="wrole">Scriptwriter</div></div>
         <div><div class="wtitle">Dividends</div><p class="wdesc">A drama about the lure of get-rich-quick schemes and the people left behind when the doors close. Not every opportunity is golden.</p></div>
         <div class="wlinks"></div>
       </div>
       <div class="witem">
         <button type="button" class="wposter land" style="--img:url(images/works/badt-guys.jpg)" data-full="images/works/badt-guys.jpg" aria-label="View Badt Guys poster"><img src="images/works/badt-guys.jpg" alt="Badt Guys poster" loading="lazy"/></button>
-        <div><div class="wnet">Akin Fadeyi Foundation · NTA</div><div class="wrole">Creator</div></div>
+        <div><div class="wnet">Akin Fadeyi Foundation · NTA</div><div class="wrole">Creator · Writer</div></div>
         <div><div class="wtitle">Badt Guys</div><p class="wdesc">A nine-episode drama series exposing corruption in grassroots politics, broadcast on NTA Network in 2020 to inspire positive behavioural change.</p></div>
         <div class="wlinks"></div>
       </div>
@@ -712,7 +712,7 @@ footer {
       </div>
       <div class="witem">
         <button type="button" class="wposter" data-full="images/works/postcards.jpg" aria-label="View Postcards poster"><img src="images/works/postcards.jpg" alt="Postcards poster" loading="lazy"/></button>
-        <div><div class="wnet">Forever 7 Entertainment</div><div class="wrole">Writer · Story Dev</div></div>
+        <div><div class="wnet">Forever 7 Entertainment · Netflix</div><div class="wrole">Scriptwriter · Story Dev</div></div>
         <div><div class="wtitle">Postcards</div><p class="wdesc">Heartfelt drama exploring connection and distance in contemporary Nigeria. Story development through to production-ready drafts.</p></div>
         <div class="wlinks"></div>
       </div>
@@ -818,6 +818,10 @@ footer {
     <a href="tel:+2348183875295" class="contact-card">
       <div class="cc-label">Phone</div>
       <div class="cc-val">+234 818 387 5295</div>
+    </a>
+    <a href="files/Ekenem-Ugede-Writing-Resume.pdf" class="contact-card" download>
+      <div class="cc-label">Resume</div>
+      <div class="cc-val">Download PDF ↓</div>
     </a>
     <a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener" class="contact-card">
       <div class="cc-label">IMDB</div>
