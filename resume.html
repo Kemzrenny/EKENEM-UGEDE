@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="Writing resume of Ekenem Ugede — Writer, Director, Content Producer."/>
 <title>Resume — Ekenem Ugede</title>
+<meta property="og:title" content="Ekenem Ugede — Writing Resume"/>
+<meta property="og:image" content="https://ekenemugede.vercel.app/images/portraits/share.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -48,6 +51,10 @@ h1 span { color:var(--red); display:block; }
 .contact a { text-decoration:none; border-bottom:1px solid var(--border); transition:border-color 0.2s, color 0.2s; }
 .contact a:hover { color:var(--white); border-color:var(--red); }
 
+.banner { margin:2.5rem 0 0; overflow:hidden; background:#000; }
+.banner img { width:100%; aspect-ratio:21/9; object-fit:cover; object-position:center 28%; display:block; filter:brightness(0.92); }
+@media (max-width:720px) { .banner img { aspect-ratio:4/3; } }
+
 section { display:grid; grid-template-columns:200px 1fr; gap:2.5rem; padding:2.5rem 0; border-bottom:1px solid var(--border); }
 h2 { font-family:'Bebas Neue',sans-serif; font-weight:400; font-size:1.6rem; letter-spacing:0.04em; color:var(--white); line-height:1.1; }
 p { font-size:0.95rem; }
@@ -89,7 +96,7 @@ p { font-size:0.95rem; }
 /* Print: clean light page */
 @media print {
   :root { --bg:#fff; --bg2:#fff; --white:#111; --off:#222; --muted:#555; --border:#ddd; }
-  .bar, .foot { display:none; }
+  .bar, .foot, .banner { display:none; }
   .page { padding:0; max-width:none; }
   section { break-inside:avoid; padding:1.25rem 0; }
   a { text-decoration:none; }
@@ -120,6 +127,10 @@ p { font-size:0.95rem; }
       <li><a href="https://www.imdb.com/name/nm13528374/" target="_blank" rel="noopener">IMDb ↗</a></li>
     </ul>
   </div>
+
+  <figure class="banner">
+    <img src="images/portraits/pages-throw.jpg" alt="Ekenem Ugede surrounded by notebooks, tossing coloured pages into the air"/>
+  </figure>
 
   <section>
     <h2>Profile</h2>
