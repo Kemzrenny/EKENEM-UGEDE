@@ -448,10 +448,10 @@ body {
 @media(max-width:960px){ .deck-intro{ grid-template-columns:1fr; gap:1rem; } .deck{ grid-template-columns:1fr; gap:1.75rem; } }
 @media(max-width:600px){ .deck-pages{ grid-template-columns:1fr 1fr; } .deck-more{ aspect-ratio:16/9; } }
 #gallery { background:var(--bg); }
-.gal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
-.gal-item { margin:0; }
+.gal-grid { columns:3 260px; column-gap:1rem; }
+.gal-item { margin:0 0 1.5rem; break-inside:avoid; }
 .gal-item button { display:block; width:100%; padding:0; border:none; background:#000; cursor:zoom-in; overflow:hidden; }
-.gal-item img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; transition:transform 0.5s; }
+.gal-item img { width:100%; height:auto; display:block; transition:transform 0.5s; }
 .gal-item button:hover img { transform:scale(1.04); }
 .gal-item figcaption { font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:0.75rem; }
 
@@ -827,7 +827,7 @@ footer {
       </div>
       <div class="witem">
         <button type="button" class="wposter land has-video" style="--img:url(https://i.ytimg.com/vi/mR3eEWkVxjA/hqdefault.jpg)" data-yt="mR3eEWkVxjA" aria-label="Play Shining Forth"><img src="https://i.ytimg.com/vi/mR3eEWkVxjA/hqdefault.jpg" alt="Shining Forth episode still" loading="lazy"/><span class="wplay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
-        <div><div class="wnet">Now On Media</div><div class="wrole">Creator · Writer · Producer</div></div>
+        <div><div class="wnet">Bufferzone Nigeria Ltd</div><div class="wrole">Creator · Writer · Producer</div></div>
         <div><div class="wtitle">Shining Forth</div><p class="wdesc">Created, wrote, and produced end-to-end — full creative and production ownership from concept to broadcast-ready episodes.</p></div>
         <div class="wlinks">
           <button type="button" class="wwatch" data-yt="mR3eEWkVxjA" aria-label="Play Shining Forth — Episode 5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Episode 5</span></button>
@@ -851,6 +851,18 @@ footer {
     <!-- CONTENT PRODUCING -->
     <div class="tpanel" id="tp-con" role="tabpanel">
       <div class="witem">
+        <button type="button" class="wposter land" style="--img:url(images/works/jara.jpg)" data-full="images/works/jara.jpg" aria-label="View Jara still"><img src="images/works/jara.jpg" alt="Jara on Africa Magic" loading="lazy"/></button>
+        <div><div class="wnet">Africa Magic</div><div class="wrole">Producer</div></div>
+        <div><div class="wtitle">Jara</div><p class="wdesc">Producer on this Africa Magic entertainment show, shaping each episode from concept through to broadcast.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
+        <button type="button" class="wposter" data-full="images/works/53-extra.jpg" aria-label="View 53 Extra poster"><img src="images/works/53-extra.jpg" alt="53 Extra poster" loading="lazy"/></button>
+        <div><div class="wnet">Africa Magic</div><div class="wrole">Content Producer</div></div>
+        <div><div class="wtitle">53 Extra</div><p class="wdesc">Content producer on Africa Magic’s long-running entertainment news show, covering African film, music, and celebrity culture.</p></div>
+        <div class="wlinks"></div>
+      </div>
+      <div class="witem">
         <button type="button" class="wposter has-video land" style="--img:url(images/works/highlites-with-ik.jpg)" data-yt="xn5_Qrj1Hfs" aria-label="Play Highlites With IK"><img src="images/works/highlites-with-ik.jpg" alt="Highlites With IK poster" loading="lazy"/><span class="wplay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
         <div><div class="wnet">M-Net · Lite Communications</div><div class="wrole">Content Producer · Director</div></div>
         <div><div class="wtitle">Highlites With IK</div><p class="wdesc">Content producer and director for this M-Net late-night format show, overseeing continuity and editorial voice across multiple series.</p></div>
@@ -864,7 +876,7 @@ footer {
       </div>
       <div class="witem">
         <div class="wposter empty" aria-hidden="true"></div>
-        <div><div class="wnet">Feb – Mar 2019</div><div class="wrole">Script Writer · Content Dev</div></div>
+        <div><div class="wnet">Now On Media · Africa Magic</div><div class="wrole">Script Writer · Content Dev</div></div>
         <div><div class="wtitle">Big Brother Reunion</div><p class="wdesc">Specialist script writer and content developer for this high-profile reunion format, ensuring narrative continuity across the broadcast.</p></div>
         <div class="wlinks"></div>
       </div>
@@ -892,6 +904,30 @@ footer {
   <div class="sec-label">Behind the Scenes</div>
   <h2 class="sec-title">On <em>set.</em></h2>
   <div class="gal-grid">
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/workshop-bw.jpg" aria-label="View larger: Workshop session"><img src="images/gallery/workshop-bw.jpg" alt="Ekenem in a workshop session, reviewing notes with participants" loading="lazy"/></button>
+      <figcaption>Workshop session</figcaption>
+    </figure>
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/tfr-directing-outdoors.jpg" aria-label="View larger: Directing on location · TigerFireRose"><img src="images/gallery/tfr-directing-outdoors.jpg" alt="Ekenem directing an actor on location" loading="lazy"/></button>
+      <figcaption>Directing on location · TigerFireRose</figcaption>
+    </figure>
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/behind-the-camera.jpg" aria-label="View larger: Behind the camera"><img src="images/gallery/behind-the-camera.jpg" alt="Ekenem operating a camera on set" loading="lazy"/></button>
+      <figcaption>Behind the camera</figcaption>
+    </figure>
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/tfr-table-read.jpg" aria-label="View larger: Table read · TigerFireRose"><img src="images/gallery/tfr-table-read.jpg" alt="Cast table read with scripts" loading="lazy"/></button>
+      <figcaption>Table read · TigerFireRose</figcaption>
+    </figure>
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/tfr-briefing.jpg" aria-label="View larger: Scene briefing · TigerFireRose"><img src="images/gallery/tfr-briefing.jpg" alt="Ekenem briefing an actor before a scene" loading="lazy"/></button>
+      <figcaption>Scene briefing · TigerFireRose</figcaption>
+    </figure>
+    <figure class="gal-item">
+      <button type="button" data-full="images/gallery/on-the-monitor.jpg" aria-label="View larger: On the monitor"><img src="images/gallery/on-the-monitor.jpg" alt="Camera monitor showing a scene being recorded" loading="lazy"/></button>
+      <figcaption>On the monitor</figcaption>
+    </figure>
     <figure class="gal-item">
       <button type="button" data-full="images/gallery/comedy-nites-on-set.jpg" aria-label="View larger"><img src="images/gallery/comedy-nites-on-set.jpg" alt="Ekenem on the set of Comedy Nites with cast" loading="lazy"/></button>
       <figcaption>Comedy Nites · Africa Magic</figcaption>
